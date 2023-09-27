@@ -1,0 +1,145 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Mooli&display=swap');
+
+body {
+    background: radial-gradient(circle at top, transparent 60%, #d33131 61%, #d33131 66%, transparent 67%), radial-gradient(circle at bottom, transparent 60%, #d33131 61%, #d33131 66%, transparent 67%), radial-gradient(circle at left, transparent 60%, #d33131 61%, #d33131 66%, transparent 67%), radial-gradient(circle at right, transparent 60%, #d33131 61%, #d33131 66%, transparent 67%);
+    background-size: 1em 1em;
+    background-color: #a82222;
+    font-family: 'Mooli', sans-serif;
+}
+
+#index, #display {
+    margin: auto;
+    width: 1200px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    gap: 0;
+}
+
+#index {
+    grid-template: repeat(6, 140px)/repeat(7, 1fr);
+}
+
+#index img {
+    width: 60%
+}
+
+#index img:hover {
+    width: 80%;
+}
+
+#index p {
+    font-size: 1.3rem;
+    grid-area: 6 / 1 / 7 / 4;
+    text-align: left;
+    color: rgb(255, 251, 243);
+    z-index: 2;
+}
+
+#all_categories {
+    grid-area: 3 / 2 / 5 / 6;
+    z-index: 1;
+}
+
+#all_categories img {
+    width: 100%;
+}
+
+#all_categories img:hover{
+    width: 100%;
+}
+
+#general_knowlegde {
+    grid-area: 1 / 4 / 4 / 6;
+    width: 50%;
+    z-index: 11;
+}
+
+#movies {
+    grid-area: 3 / 7 / 5 / 8;
+    z-index: 3;
+
+}
+
+#animals {
+    grid-area: 2 / 6 / 3 / 7;
+    z-index: 4;
+}
+
+#music {
+    grid-area: 1 / 3 / 2 / 4;
+    z-index: 5;
+}
+
+#science {
+    grid-area: 4 / 4 / 7 / 5;
+    z-index: 6;
+}
+
+#sports {
+    grid-area: 2 / 1 / 3 / 2;
+    z-index: 7;
+}
+
+#geography {
+    grid-area: 5 / 1 / 6 / 3;
+    width: 50%;
+    z-index: 7;
+}
+
+#history {
+    grid-area: 3 / 1 / 5 / 2;
+    z-index: 8;
+}
+
+#books {
+    grid-area: 4 / 6 / 6 / 7;
+    z-index: 9;
+}
+
+#art {
+    grid-area: 5 / 5 / 7 / 6;
+    z-index: 10;
+}
+
+.question{
+    color: white;
+    font-size: 2rem;
+}
+
+#display h1{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(77, 4, 4, 0.4);
+    border-radius: 50px;
+    padding: 50px;
+    border: solid 10px rgba(77, 4, 4, 0.5);
+}
+
+.answer-container {
+    display: grid;
+    width: 100%;
+    margin-top: 100px;
+    grid-template-rows: repeat(2, 100px);
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center; 
+    height: 400px; 
+    row-gap: 40px;
+}
+
+.answer-container * {
+    background-color: rgba(255, 255, 255, 0.4);
+    width: 80%; 
+    border-radius: 30px;
+    text-align: center;
+    font-size: 2rem;
+    padding: 30px 20px;
+}
+
+.answer-container *:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
