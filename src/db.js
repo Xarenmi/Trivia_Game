@@ -45,6 +45,7 @@ class Category {
     }
 
     async fetchQuestions() {
+        console.log(this.url);
         while (this.questions.length === 0) {
             await new Promise(resolve => setTimeout(resolve, 100));
         }
@@ -55,6 +56,7 @@ class Category {
             object.question = object.question.replace(/&amp;/g, '&');
             object.question = object.question.replace(/&Uuml;/g, 'ü');
             object.question = object.question.replace(/&rsquo;/g, '’');
+            object.question = object.question.replace(/&Aring;/g, 'Å');
         });
 
         return this.questions;

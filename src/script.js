@@ -1,4 +1,7 @@
 import Category from './db.js';
+
+let score = 0;
+
 let catID = '';
 let difficulty = '';
 let questionType = '';
@@ -28,14 +31,34 @@ catButtons.forEach(button => {
 });
 
 function loadOptions() {
-    setQuestions();
+    index.style.display = 'none';
+    display.hidden = false;
+    display.innerHTML = '<div id="typeSelect"><aside id="multiple">MULTIPLE</aside><aside id="boolean">BOOLEAN</aside><aside id="any">A BIT OF EVERYTHING</aside></div>';
+    let multiple = document.getElementById('multiple');
+    let boolean = document.getElementById('boolean');
+    let any = document.getElementById('any');
+    const options = [multiple, boolean, any];
+
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+           let typeID = option.getAttribute('id');
+           if(typeID !== 'any'){
+                questionType = typeID;
+           } else {
+                questionType = '';
+           }
+           
+           setQuestions();
+
+        })
+    })
+    
 }
 
 
 function setQuestions() {
-    index.style.display = 'none';
-    display.innerHTML = '<h1 class="question"></h1> <div class="answer-container"></div>'
-    display.hidden = false;
+    display.innerHTML = '<p id="score">SCORE: ' + score + '</p>';
+    display.innerHTML += '<h1 class="question"></h1> <div class="answer-container"></div>' 
     let set = new Category(catID, difficulty, questionType);
     set.fetchQuestions().then((questions) => {
         questionSet = questions;
@@ -71,6 +94,8 @@ function setOptions(question) {
 }
 
 function isCorrect(answer) {
+    let scoreParagraph = document.getElementById('score');
+    scoreParagraph.innerHTML = 'SCORE ' + score;
     let buttons = Array.from(document.querySelectorAll('div'));
     buttons.splice(0, 1);
     let isClicked = false;
@@ -82,9 +107,15 @@ function isCorrect(answer) {
 
                 //add select sound
                 if (chosen === answer) {
-                    button.style.backgroundColor = 'green';
+                    button.style.border = 'solid 5px #7ee069';
+                    score += 10;
                 } else {
-                    button.style.backgroundColor = 'red';
+                    button.style.border = 'solid 5px #e0697e';
+                    buttons.forEach(b => {
+                        if(b.innerText === answer){
+                            b.style.border = 'solid 5px #7ee069';
+                        }
+                    })
                 }
                 
                 //display correct or wrong img
@@ -112,5 +143,7 @@ function isCorrect(answer) {
 
 //complete
 function displayResults(score){
-    console.log(score);
+    //add quit or restar button
+    //play result sound
 } 
+
