@@ -16,10 +16,10 @@ const catButtons = index.querySelectorAll('section');
 display.hidden = true;
 index.style.display = 'grid';
 
-setTimeout(() => {
+/* setTimeout(() => {
     const audio = new Audio('../audio/Einstein Kleinigkeiten.wav');
     audio.play();
-}, 1000);
+}, 1000); */
 
 catButtons.forEach(button => {
     //add select sound onMouseover
@@ -119,7 +119,6 @@ function isCorrect(answer) {
                 }
                 
                 //display correct or wrong img
-                //update score
                 currentQuestion++;
 
                 buttons.forEach(b => {
@@ -143,6 +142,7 @@ function isCorrect(answer) {
 
 //complete
 function displayResults(score){
+    console.log(score);
     //add quit or restar button
     //play result sound
 } 
