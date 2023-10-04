@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Mooli&display=swap');
 
 body {
-    background: linear-gradient(90deg,#c0c9f4 25%, transparent 26%, transparent 49%, #c0c9f480 50%, #c0c9f480 75%, transparent 76%);
+    background: linear-gradient(90deg, #c0c9f4 25%, transparent 26%, transparent 49%, #c0c9f480 50%, #c0c9f480 75%, transparent 76%);
     background-size: 3em 3em;
     background-color: #ffffff;
     font-family: 'Mooli', sans-serif;
 }
 
-#index{
+#index {
     margin: 80px auto 0;
     width: 1200px;
     display: grid;
@@ -135,16 +135,12 @@ body {
 }
 
 #score {
-    color:#0427c1;
+    color: #0427c1;
     font-family: Impact, sans-serif;
     font-size: 40px;
 }
 
-.question {
-    color: white;
-    font-size: 2rem;
-}
-#display { 
+#display {
     margin: auto;
     width: 1200px;
     display: grid;
@@ -153,7 +149,82 @@ body {
     gap: 0;
 }
 
-#display h1 {
+#option_container {
+
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template: 1, 600px / repeat(2, 1fr);
+    gap: 0px;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+}
+
+.option_header {
+    font-size: 15px;
+    margin-top: 80px;
+    background-color: #0427c1;
+    padding: 15px;
+    border-radius: 15px;
+    color: #ffffff;
+}
+
+#type {
+    grid-area: 1 / 1 / span 1 / span 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 70px;
+
+}
+
+#type img {
+    width: 150px;
+}
+
+#difficulty {
+    grid-area: 1 / 2 / span 1 / span 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    gap: 70px;
+}
+
+#difficulty p{
+    font-size: 15px;
+    line-height: 2;
+    width: 100%;
+    background-color:white;
+    border-radius: 10px;
+    color: #0427c1;
+}
+
+button{
+    position: absolute;
+    top: 90%;
+    left: 80%;
+    background-color: #0427c1;
+    color: white;
+    font-size: 20px;
+    border-radius: 30px;
+    padding: 20px;
+    border: none;
+    z-index: 30;
+}
+
+#level {
+    padding-left: 130px;
+}
+
+.button_container img {
+    width: 50px;
+}
+
+.question {
+    color: white;
+    font-size: 2rem;
     margin-top: 100px;
     display: flex;
     justify-content: center;
@@ -188,4 +259,24 @@ body {
 
 .answer-container *:hover {
     background-color: #9eceff;
+}
+
+#score_container {
+    gap: 0;
+    display: grid;
+    grid-template: repeat(6, 140px)/repeat(7, 1fr);
+}
+
+#score_container img {
+    grid-area: 3 / 2 / 5 / 6;
+    z-index: 2;
+}
+
+#score {
+    grid-area: 1 / 4 / 4 / 6;
+    width: 100%;
+    z-index: 11;
+    background-color: #0427c1;
+    border-radius: 30px;
+    color: #ffffff;
 }
