@@ -8,13 +8,13 @@ let questionType = '';
 let questionSet = [];
 let currentQuestion = 0;
 
-
 //Index
 const index = document.getElementById('index');
 const display = document.getElementById('display');
 const catButtons = index.querySelectorAll('section');
-display.hidden = true;
+display.style.display = 'none';
 index.style.display = 'grid';
+
 
 /* setTimeout(() => {
     const audio = new Audio('../audio/Einstein Kleinigkeiten.wav');
@@ -31,34 +31,87 @@ catButtons.forEach(button => {
 });
 
 function loadOptions() {
+
     index.style.display = 'none';
-    display.hidden = false;
-    display.innerHTML = '<div id="typeSelect"><aside id="multiple">MULTIPLE</aside><aside id="boolean">BOOLEAN</aside><aside id="any">A BIT OF EVERYTHING</aside></div>';
-    let multiple = document.getElementById('multiple');
-    let boolean = document.getElementById('boolean');
-    let any = document.getElementById('any');
-    const options = [multiple, boolean, any];
+    display.style.display = 'grid';
 
-    options.forEach(option => {
-        option.addEventListener('click', () => {
-           let typeID = option.getAttribute('id');
-           if(typeID !== 'any'){
-                questionType = typeID;
-           } else {
+    const types = document.querySelectorAll('#type img');
+
+    types.forEach(element => {
+        element.addEventListener('click', () => {
+            types.forEach(item => {
+                item.style.width = '120px';
+            });
+            element.style.width = '200px';
+
+            let type = element.getAttribute('alt');
+            if (type !== 'any') {
+                questionType = type;
+
+            } else {
                 questionType = '';
-           }
-           
-           setQuestions();
+            }
+        });
+    });
 
-        })
-    })
+
+    let arrows = document.querySelectorAll('#difficulty img');
+    const currentDifficulty = document.querySelector('#difficulty p');
+    const possibleLevels = ['any', 'easy', 'normal', 'hard'];
     
+    let currentIndex = 0;
+    arrows[0].alt = possibleLevels[currentIndex];
+    currentDifficulty.innerText = arrows[0].alt.toUpperCase()
+
+    arrows[1].addEventListener('click', () => {
+        if (currentIndex < 1) {
+            arrows[1].disabled = true;
+        } else {
+            arrows[1].disabled = false;
+            currentIndex --;
+            arrows[0].src = `./img/${possibleLevels[currentIndex]}.png`;
+            arrows[0].alt = possibleLevels[currentIndex];
+            currentDifficulty.innerText = arrows[0].alt.toUpperCase()
+
+            if (arrows[0].alt !== 'any') {
+                difficulty = arrows[0].alt;
+            } else {
+                difficulty = '';
+            }
+        }
+    });
+
+    arrows[2].addEventListener('click', () => {
+        if (currentIndex >= possibleLevels.length - 1) {
+            arrows[2].disabled = true;
+        } else {
+            arrows[2].disabled = false;
+            currentIndex ++;
+            arrows[0].src = `./img/${possibleLevels[currentIndex]}.png`;
+            arrows[0].alt = possibleLevels[currentIndex];
+            currentDifficulty.innerText = arrows[0].alt.toUpperCase()
+
+            if (arrows[0].alt !== 'any') {
+                difficulty = arrows[0].alt;
+            } else {
+                difficulty = '';
+            }
+        }
+    });
+
+    const continueBtn = document.querySelector('button');
+    continueBtn.onclick = () => {
+        setQuestions();
+    };
+
 }
 
-
 function setQuestions() {
+    display.style.display = 'flex';
+    display.style.flexDirection = 'column';
     display.innerHTML = '<p id="score">SCORE: ' + score + '</p>';
-    display.innerHTML += '<h1 class="question"></h1> <div class="answer-container"></div>' 
+    display.innerHTML += '<h1 class="question"></h1> <div class="answer-container"></div>'
+    console.log(display);
     let set = new Category(catID, difficulty, questionType);
     set.fetchQuestions().then((questions) => {
         questionSet = questions;
@@ -76,7 +129,6 @@ function loadQuestion(that) {
 
 function setOptions(question) {
     const answerContainer = document.getElementsByClassName('answer-container');
-    //add score
     let options = Category.shuffle(question);
 
     if (question.type === 'multiple') {
@@ -95,7 +147,7 @@ function setOptions(question) {
 
 function isCorrect(answer) {
     let scoreParagraph = document.getElementById('score');
-    scoreParagraph.innerHTML = 'SCORE ' + score;
+    scoreParagraph.innerHTML = 'SCORE: ' + score;
     let buttons = Array.from(document.querySelectorAll('div'));
     buttons.splice(0, 1);
     let isClicked = false;
@@ -105,19 +157,19 @@ function isCorrect(answer) {
             if (!isClicked) {
                 const chosen = button.innerText;
 
-                //add select sound
+                //add select sound & background music
                 if (chosen === answer) {
                     button.style.border = 'solid 5px #7ee069';
                     score += 10;
                 } else {
                     button.style.border = 'solid 5px #e0697e';
                     buttons.forEach(b => {
-                        if(b.innerText === answer){
+                        if (b.innerText === answer) {
                             b.style.border = 'solid 5px #7ee069';
                         }
                     })
                 }
-                
+
                 //display correct or wrong img
                 currentQuestion++;
 
@@ -132,7 +184,7 @@ function isCorrect(answer) {
                         loadQuestion(questionSet[currentQuestion]);
                     }, 1500);
                 } else {
-                    displayResults(100);
+                    displayResults(score);
                 }
             }
 
@@ -140,10 +192,47 @@ function isCorrect(answer) {
     });
 }
 
-//complete
-function displayResults(score){
+
+function displayResults(score) {
+    let message = '';
+    /* let audio = new Audio('../audio/nochEinmal/vielleicht nachstes mal.wav'); */
+
+    switch (score) {
+        case score >= 30 && score <= 60:
+            message = 'Need a little more practice.';
+            /* audio = new Audio('../audio/nochEinmal/Du musst dich mehr anstrengen.wav');
+            audio.play(); */
+            break;
+        case score == 70 || score == 80:
+            message = 'GOOD JOB! Keep going!'
+            /* audio = new Audio('../audio/gutGemacht/Toll.wav');
+            audio.play(); */
+            break;
+        case score >= 90:
+            message = 'MARVELOUS!';
+            /* audio = new Audio('../audio/gutGemacht/wunderbar.wav');
+            audio.play(); */
+            break;
+        default:
+            message = "You could've done better... Maybe next time.";
+        /* audio.play();  */
+    }
+
+    display.innerHTML = `<main id="score_container"><img src="./img/Score.png" alt="einstein"/></main><aside id="score">'${message} <br> Tu calificación fue de:<strong> ${score} </strong> </aside> <section><button>RETRY</button><button>QUIT</button></section>`;
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        if (button.innerText === 'RETRY') {
+            button.onclick = function () {
+                location.reload();
+            };
+        } else {
+            button.onclick = function () {
+                window.close();
+            };
+        }
+    });
+
+    //play farewell sound
     console.log(score);
-    //add quit or restar button
-    //play result sound
-} 
+}
 

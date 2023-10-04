@@ -3,10 +3,11 @@
   "name": "proyecto_trivia",
   "version": "1.0.0",
   "description": "Trivia Game",
-  "main": "script.js",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": ["trivia",],
   "author": "Xarenmi",
   "license": "ISC"
 }
