@@ -15,7 +15,6 @@ const catButtons = index.querySelectorAll('section');
 display.style.display = 'none';
 index.style.display = 'grid';
 
-
 /* setTimeout(() => {
     const audio = new Audio('../audio/Einstein Kleinigkeiten.wav');
     audio.play();
@@ -57,8 +56,8 @@ function loadOptions() {
 
     let arrows = document.querySelectorAll('#difficulty img');
     const currentDifficulty = document.querySelector('#difficulty p');
-    const possibleLevels = ['any', 'easy', 'normal', 'hard'];
-    
+    const possibleLevels = ['any', 'easy', 'medium', 'hard'];
+
     let currentIndex = 0;
     arrows[0].alt = possibleLevels[currentIndex];
     currentDifficulty.innerText = arrows[0].alt.toUpperCase()
@@ -68,7 +67,7 @@ function loadOptions() {
             arrows[1].disabled = true;
         } else {
             arrows[1].disabled = false;
-            currentIndex --;
+            currentIndex--;
             arrows[0].src = `./img/${possibleLevels[currentIndex]}.png`;
             arrows[0].alt = possibleLevels[currentIndex];
             currentDifficulty.innerText = arrows[0].alt.toUpperCase()
@@ -86,7 +85,7 @@ function loadOptions() {
             arrows[2].disabled = true;
         } else {
             arrows[2].disabled = false;
-            currentIndex ++;
+            currentIndex++;
             arrows[0].src = `./img/${possibleLevels[currentIndex]}.png`;
             arrows[0].alt = possibleLevels[currentIndex];
             currentDifficulty.innerText = arrows[0].alt.toUpperCase()
@@ -194,33 +193,49 @@ function isCorrect(answer) {
 
 
 function displayResults(score) {
+    display.style.display = 'grid';
+    display.style.gridTemplate = 'repeat(6, 140px)/repeat(6, 1fr)';
     let message = '';
     /* let audio = new Audio('../audio/nochEinmal/vielleicht nachstes mal.wav'); */
 
-    switch (score) {
-        case score >= 30 && score <= 60:
-            message = 'Need a little more practice.';
-            /* audio = new Audio('../audio/nochEinmal/Du musst dich mehr anstrengen.wav');
-            audio.play(); */
-            break;
-        case score == 70 || score == 80:
-            message = 'GOOD JOB! Keep going!'
-            /* audio = new Audio('../audio/gutGemacht/Toll.wav');
-            audio.play(); */
-            break;
-        case score >= 90:
-            message = 'MARVELOUS!';
-            /* audio = new Audio('../audio/gutGemacht/wunderbar.wav');
-            audio.play(); */
-            break;
-        default:
-            message = "You could've done better... Maybe next time.";
+    if (score >= 30 && score <= 60) {
+        message = 'Need a little more practice.';
+        /* audio = new Audio('../audio/nochEinmal/Du musst dich mehr anstrengen.wav');
+        audio.play(); */
+    } else if (score == 70 || score == 80) {
+        message = 'GOOD JOB! Keep going!'
+        /* audio = new Audio('../audio/gutGemacht/Toll.wav');
+        audio.play(); */
+    } else if (score >= 90) {
+        message = 'MARVELOUS!';
+        /* audio = new Audio('../audio/gutGemacht/wunderbar.wav');
+        audio.play(); */
+    } else {
+        message = "You could've done better... Maybe next time.";
         /* audio.play();  */
     }
 
-    display.innerHTML = `<main id="score_container"><img src="./img/Score.png" alt="einstein"/></main><aside id="score">'${message} <br> Tu calificación fue de:<strong> ${score} </strong> </aside> <section><button>RETRY</button><button>QUIT</button></section>`;
+    display.innerHTML = `
+    <img src="./img/Score.png" alt="einstein" id="score_img"/>
+    <aside id="score_message">
+        ${message} <br> 
+        You scored <strong> ${score} </strong> points! 
+    </aside> 
+    <aside class="two_buttons">
+        <button>RETRY</button>
+        <button>QUIT</button>
+    </aside>`;
     const buttons = document.querySelectorAll('button');
     buttons.forEach(button => {
+
+        button.addEventListener('mouseover', () => {
+            button.style.backgroundColor = "#9eceff";
+        });
+
+        button.addEventListener('mouseout', () => {
+            button.style.backgroundColor = "#0427c1";
+        });
+
         if (button.innerText === 'RETRY') {
             button.onclick = function () {
                 location.reload();
