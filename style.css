@@ -135,7 +135,12 @@ body {
 }
 
 #score {
-    color: #0427c1;
+    padding: 20px 0;
+    width: 50%;
+    text-align: center;
+    background-color: #0427c1;
+    color: white;
+    border-radius: 50px;
     font-family: Impact, sans-serif;
     font-size: 40px;
 }
@@ -192,16 +197,19 @@ body {
     gap: 70px;
 }
 
-#difficulty p{
-    font-size: 15px;
+#difficulty p {
+    font-size: 20px;
+    font-weight: 800;
+    padding: 10px;
     line-height: 2;
-    width: 100%;
+    width: 50%;
+    margin: auto;
     background-color:white;
     border-radius: 10px;
     color: #0427c1;
 }
 
-button{
+.one_button{
     position: absolute;
     top: 90%;
     left: 80%;
@@ -261,22 +269,37 @@ button{
     background-color: #9eceff;
 }
 
-#score_container {
-    gap: 0;
-    display: grid;
-    grid-template: repeat(6, 140px)/repeat(7, 1fr);
-}
 
-#score_container img {
-    grid-area: 3 / 2 / 5 / 6;
-    z-index: 2;
-}
-
-#score {
-    grid-area: 1 / 4 / 4 / 6;
-    width: 100%;
-    z-index: 11;
+#score_message {
+    padding: 20px;
+    text-align: center;
+    font-size: 40px;
+    grid-area: 2 / 4 / 4 /7;
+    z-index: 10;
     background-color: #0427c1;
     border-radius: 30px;
     color: #ffffff;
+}
+
+#score_img {
+    grid-area: 3 / 1 / 6 / 4;
+    z-index: 5;
+}
+
+.two_buttons {
+    grid-area: 5 / 4 / 7 / 7;
+    z-index: 50;
+    display: flex;
+    flex-direction: row;
+}
+
+.two_buttons button{
+    width: 150px;
+    background-color: #0427c1;
+    color: white;
+    font-size: 20px;
+    border-radius: 30px;
+    padding: 20px;
+    border: none;
+    margin: 0 80px;
 }
