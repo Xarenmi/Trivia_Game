@@ -75,14 +75,16 @@ class Category {
             allAnswers.push(question.incorrect_answers[0]);
         }
 
-        let getRandomIndex = () => Math.floor(Math.random() * allAnswers.length);
+        let allShuffled = allAnswers.sort((a,b) => Math.random() - 0.5);
+
+        /* let getRandomIndex = () => Math.floor(Math.random() * allAnswers.length);
         let allShuffled = [];
 
         for (let i = allAnswers.length; i > 0; i--) {
             let randomIndex = getRandomIndex()
             allShuffled.push(allAnswers[randomIndex]);
             allAnswers.splice(randomIndex, 1);
-        }
+        } */
 
         return allShuffled;
     }
